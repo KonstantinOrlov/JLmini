@@ -20,6 +20,6 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <DataGrid x:Name="QuestionGrid" AutoGenerateColumns="True" ItemsSource="{Binding Questions}"></DataGrid>
+        <DataGrid x:Name="QuestionGrid" AutoGenerateColumns="True" ItemsSource="{Binding Questions}" SelectionChanged="QuestionGrid_SelectionChanged"></DataGrid>
     </Grid>
 </Window>
