@@ -24,7 +24,6 @@ namespace JLmini
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new PersonViewModel();
         }
     }
 }
