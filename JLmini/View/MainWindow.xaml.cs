@@ -25,10 +25,5 @@ namespace JLmini
         {
             InitializeComponent();
         }
-
-        private void QuestionGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 }

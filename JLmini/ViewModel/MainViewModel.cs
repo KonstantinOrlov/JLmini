@@ -12,6 +12,8 @@ namespace JLmini.ViewModel
     class MainViewModel : ViewModelBase
     {
         private ViewModelBase currentViewModel;
+        private CommandBase showPeople;
+        private CommandBase showQuestions;
 
         PersonViewModel PersonVM = new PersonViewModel();
         QuestionViewModel QuestionVM = new QuestionViewModel();
@@ -26,9 +28,33 @@ namespace JLmini.ViewModel
             }
         }
 
+        public CommandBase ShowPeople
+        {
+            get
+            {
+                return showPeople ??
+                    (showPeople = new CommandBase(obj =>
+                    {
+                        CurrentViewModel = PersonVM;
+                    }));
+            }
+        }
+
+        public CommandBase ShowQuestions
+        {
+            get
+            {
+                return showQuestions ??
+                    (showQuestions = new CommandBase(obj =>
+                    {
+                        CurrentViewModel = QuestionVM;
+                    }));
+            }
+        }
+
         public MainViewModel()
         {
-            CurrentViewModel = PersonVM;
+            CurrentViewModel = QuestionVM;
         }
     }
 }

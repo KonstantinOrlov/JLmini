@@ -4,22 +4,36 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JLmini"
-        xmlns:vm="clr-namespace:JLmini.ViewModel"
+        xmlns:vm="clr-namespace:JLmini.ViewModel" 
+        xmlns:view="clr-namespace:JLmini.View"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
-    <Window.DataContext>
-        <vm:QuestionViewModel />
-    </Window.DataContext>
     <Window.Resources>
-        <Style TargetType="TextBlock">
-            <Setter Property="FontSize" Value="14" />
-        </Style>
-        <Style TargetType="TextBox">
-            <Setter Property="FontSize" Value="14" />
-        </Style>
+        <DataTemplate DataType="{x:Type vm:PersonViewModel}">
+            <view:PersonView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:QuestionViewModel}">
+            <view:QuestionView/>
+        </DataTemplate>
     </Window.Resources>
+
+
+    <Window.DataContext>
+        <vm:MainViewModel />
+    </Window.DataContext>
+
     <Grid>
-        <DataGrid x:Name="QuestionGrid" AutoGenerateColumns="True" ItemsSource="{Binding Questions}" SelectionChanged="QuestionGrid_SelectionChanged"></DataGrid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Width="auto" Height="50" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Width="80" Content="Person" Command="{Binding ShowPeople}"/>
+            <Button Width ="80" Content="Questions" Command="{Binding ShowQuestions}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1"  VerticalAlignment="Bottom">
+            <ContentPresenter Content="{Binding CurrentViewModel}"/>
+        </StackPanel>
     </Grid>
 </Window>
