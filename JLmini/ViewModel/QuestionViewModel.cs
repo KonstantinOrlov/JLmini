@@ -1,20 +1,51 @@
 ﻿using JLmini.Model;
-using System;
-using System.Collections.Generic;
+using JLmini.MVVM;
+using JLmini.View;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace JLmini.ViewModel
 {
-    class QuestionViewModel : INotifyPropertyChanged
+    class QuestionViewModel : ViewModelBase
     {
+        private Question selectedQuestion;
         public ObservableCollection<Question> Questions { get; set; }
+        private CommandBase addQuestion;
+
+        public Question SelectedQuestion
+        {
+            get { return selectedQuestion; }
+            set
+            {
+                selectedQuestion = value;
+                OnPropertyChanged("SelectedQuestion");
+            }
+        }
+
+        private UserControl aktuelleView;
+        public UserControl AktuelleView
+        {
+            get { return aktuelleView; }
+            set { aktuelleView = value; OnPropertyChanged(nameof(AktuelleView)); }
+        }
+        public CommandBase AddQuestion
+        {
+            get
+            {
+                return addQuestion ??
+                 (addQuestion = new CommandBase(obj =>
+                 {
+                     Question question = new Question();
+                     Questions.Insert(0, question);
+                     SelectedQuestion = question;
+                 }));
+            }
+        }
+
         public QuestionViewModel()
         {
+            AktuelleView = new QuestionView();
+
             Questions = new ObservableCollection<Question>
             {
                 new Question{QuestionText="Основные понятия", Section = "БД", Stage ="Первая", Points=2, Time=20},
@@ -24,11 +55,7 @@ namespace JLmini.ViewModel
             };
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
+       
     }
 }
 

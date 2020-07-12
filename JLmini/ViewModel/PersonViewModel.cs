@@ -1,17 +1,10 @@
 ﻿using JLmini.Model;
-using System;
-using System.Collections.Generic;
+using JLmini.MVVM;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Navigation;
 
 namespace JLmini.ViewModel
 {
-    class PersonViewModel : INotifyPropertyChanged
+    class PersonViewModel : ViewModelBase
     {
         private Person selectedPerson;
 
@@ -34,12 +27,6 @@ namespace JLmini.ViewModel
                 new Person{FirstName="Степан", LastName="Степанов"},
                 new Person{FirstName="Иван", LastName="Иванов"}
             };
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 }
