@@ -7,7 +7,8 @@ namespace JLmini.ViewModel
     class PersonViewModel : ViewModelBase
     {
         private Person selectedPerson;
-
+        private CommandBase addPerson;
+        private CommandBase removePerson;
         public ObservableCollection<Person> People { get; set; }
         public Person SelectedPerson
         {
@@ -27,6 +28,23 @@ namespace JLmini.ViewModel
                 new Person{FirstName="Степан", LastName="Степанов"},
                 new Person{FirstName="Иван", LastName="Иванов"}
             };
+        }
+
+        public CommandBase RemovePerson
+        {
+            get
+            {
+                return removePerson ??
+                    (removePerson = new CommandBase(obj =>
+                    {
+                        Person person = obj as Person;
+                        if (person != null)
+                        {
+                            People.Remove(person);
+                        }
+                    },
+                    (obj) => People.Count > 0));
+            }
         }
     }
 }

@@ -7,6 +7,24 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <DataGrid x:Name="QuestionGrid" AutoGenerateColumns="True" ItemsSource="{Binding People}"></DataGrid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <ListBox Grid.Row="0" ItemsSource="{Binding People}"
+                 SelectedItem="{Binding SelectedPerson}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="5" Text="{Binding Path=FirstName}" />
+                        <TextBlock Margin="5" Text="{Binding Path=LastName}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Width="80" Command="{Binding AddPerson}">Add</Button>
+            <Button Width="80" Command="{Binding RemovePerson}" CommandParameter="{Binding SelectedPerson}">Remove</Button>
+        </StackPanel>
     </Grid>
 </UserControl>

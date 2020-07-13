@@ -9,8 +9,9 @@ namespace JLmini.ViewModel
     class QuestionViewModel : ViewModelBase
     {
         private Question selectedQuestion;
-        public ObservableCollection<Question> Questions { get; set; }
         private CommandBase addQuestion;
+        private CommandBase removeQuestion;
+        public ObservableCollection<Question> Questions { get; set; }
 
         public Question SelectedQuestion
         {
@@ -21,26 +22,24 @@ namespace JLmini.ViewModel
                 OnPropertyChanged("SelectedQuestion");
             }
         }
-
-        private UserControl aktuelleView;
-        public UserControl AktuelleView
-        {
-            get { return aktuelleView; }
-            set { aktuelleView = value; OnPropertyChanged(nameof(AktuelleView)); }
-        }
-        public CommandBase AddQuestion
+       
+        public CommandBase RemoveQuestion
         {
             get
             {
-                return addQuestion ??
-                 (addQuestion = new CommandBase(obj =>
-                 {
-                     Question question = new Question();
-                     Questions.Insert(0, question);
-                     SelectedQuestion = question;
-                 }));
+                return removeQuestion ??
+                    (removeQuestion = new CommandBase(obj =>
+                    {
+                        Question question = obj as Question;
+                        if (question != null)
+                        {
+                            Questions.Remove(question);
+                        }
+                    },
+                    (obj) => Questions.Count > 0));
             }
         }
+
 
         public QuestionViewModel()
         {
