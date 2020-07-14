@@ -24,6 +24,7 @@
     </Window.DataContext>
 
     <Grid>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>

@@ -11,17 +11,14 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <ListBox Grid.Row="0" ItemsSource="{Binding People}"
-                 SelectedItem="{Binding SelectedPerson}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="5" Text="{Binding Path=FirstName}" />
-                        <TextBlock Margin="5" Text="{Binding Path=LastName}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <ListView Grid.Row="0" ItemsSource="{Binding People}" SelectedItem="{Binding SelectedPerson}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding FirstName}">First name</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding LastName}">Last name</GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Width="80" Command="{Binding AddPerson}">Add</Button>
             <Button Width="80" Command="{Binding RemovePerson}" CommandParameter="{Binding SelectedPerson}">Remove</Button>

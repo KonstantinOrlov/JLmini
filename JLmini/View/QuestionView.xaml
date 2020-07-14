@@ -6,31 +6,24 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <!--<UserControl.Resources>
-        <Style TargetType="TextBlock">
-            <Setter Property="Margin" Value="5"/>
-        </Style>
-    </UserControl.Resources>-->
-    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <ListBox Grid.Row="0" ItemsSource="{Binding Questions}"
-                 SelectedItem="{Binding SelectedQuestion}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="5" Text="{Binding Path=QuestionText}" />
-                        <TextBlock Margin="5" Text="{Binding Path=Section}" />
-                        <TextBlock Margin="5" Text="{Binding Path=Stage}" />
-                        <TextBlock Margin="5" Text="{Binding Path=Points}" />
-                        <TextBlock Margin="5" Text="{Binding Path=Time}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+
+        <ListView Grid.Row="0" ItemsSource="{Binding Questions}" SelectedItem="{Binding SelectedQuestion}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding QuestionText}">Question text</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Section}">Section</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Stage}">Stage</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Points}"> Points</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Time}">Time</GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Width="80" Command="{Binding AddQuestion}">Add</Button>
             <Button Width="80" Command="{Binding RemoveQuestion}" CommandParameter="{Binding SelectedQuestion}">Remove</Button>
