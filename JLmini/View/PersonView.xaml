@@ -3,9 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:JLmini.View"
+             xmlns:local="clr-namespace:JLmini.View" xmlns:ch="clr-namespace:JLmini"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <ch:ContextHolder>
+        <ch:ContextHolder.Commands>
+            <ch:CommandBinding RoutedCommand="{x:Static ApplicationCommands.Delete}"
+                                      RelayCommand="{Binding RemovePerson }"/>
+        </ch:ContextHolder.Commands>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -16,6 +21,17 @@
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding FirstName}">First name</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding LastName}">Last name</GridViewColumn>
+
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Remove"
+                                        Command="{x:Static ApplicationCommands.Delete}"
+                                    CommandParameter="{Binding}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
                 </GridView>
             </ListView.View>
         </ListView>
@@ -24,4 +40,5 @@
             <Button Width="80" Command="{Binding RemovePerson}" CommandParameter="{Binding SelectedPerson}">Remove</Button>
         </StackPanel>
     </Grid>
+    </ch:ContextHolder>
 </UserControl>

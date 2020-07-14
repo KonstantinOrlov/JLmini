@@ -2,11 +2,15 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:JLmini"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-
-    <Grid>
+    <local:ContextHolder>
+        <local:ContextHolder.Commands>
+            <local:CommandBinding RoutedCommand="{x:Static ApplicationCommands.Delete}"
+                                      RelayCommand="{Binding RemoveQuestion}"/>
+        </local:ContextHolder.Commands>
+        <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -20,13 +24,25 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Stage}">Stage</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Points}"> Points</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Time}">Time</GridViewColumn>
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Remove"
+                                        Command="{x:Static ApplicationCommands.Delete}"
+                                    CommandParameter="{Binding}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+
                 </GridView>
             </ListView.View>
         </ListView>
-        
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+   
+    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Width="80" Command="{Binding AddQuestion}">Add</Button>
             <Button Width="80" Command="{Binding RemoveQuestion}" CommandParameter="{Binding SelectedQuestion}">Remove</Button>
         </StackPanel>
     </Grid>
+    </local:ContextHolder>
 </UserControl>
