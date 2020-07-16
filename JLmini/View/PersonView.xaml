@@ -11,34 +11,40 @@
             <ch:CommandBinding RoutedCommand="{x:Static ApplicationCommands.Delete}"
                                       RelayCommand="{Binding RemovePerson }"/>
         </ch:ContextHolder.Commands>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-        <ListView Grid.Row="0" ItemsSource="{Binding People}" SelectedItem="{Binding SelectedPerson}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding FirstName}">First name</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding LastName}">Last name</GridViewColumn>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <ListView Grid.Row="0" ItemsSource="{Binding People}" SelectedItem="{Binding SelectedPerson}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding FirstName}">First name</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding LastName}">Last name</GridViewColumn>
 
-                    <GridViewColumn>
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="Remove"
+                        <GridViewColumn>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Remove"
                                         Command="{x:Static ApplicationCommands.Delete}"
                                     CommandParameter="{Binding}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Width="80" Command="{Binding AddPerson}">Add</Button>
-            <Button Width="80" Command="{Binding RemovePerson}" CommandParameter="{Binding SelectedPerson}">Remove</Button>
-        </StackPanel>
-    </Grid>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Border Grid.Row="1" BorderThickness="2">
+                <StackPanel Grid.Row="1" DataContext="{Binding SelectedPerson}" Margin="0,20,0,0" >
+                    <TextBlock Text="First name" />
+                    <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Text="Last name " />
+                    <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+            </Border>
+            <Button Grid.Row="2" Command="{Binding AddPerson}" CommandParameter="{Binding SelectedPerson}">Add</Button>
+        </Grid>
     </ch:ContextHolder>
 </UserControl>

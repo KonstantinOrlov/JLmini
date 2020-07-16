@@ -22,12 +22,26 @@ namespace JLmini.ViewModel
 
         public PersonViewModel()
         {
+            SelectedPerson = new Person();
             People = new ObservableCollection<Person>
             {
                 new Person{FirstName="Пётр", LastName="Петров"},
                 new Person{FirstName="Степан", LastName="Степанов"},
                 new Person{FirstName="Иван", LastName="Иванов"}
             };
+        }
+
+        public CommandBase AddPerson
+        {
+            get
+            {
+                return addPerson ??
+                  (addPerson = new CommandBase(obj =>
+                  {
+                      People.Add(SelectedPerson);
+                      SelectedPerson = new Person();
+                  }));
+            }
         }
 
         public CommandBase RemovePerson

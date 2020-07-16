@@ -2,6 +2,7 @@
 using JLmini.MVVM;
 using JLmini.View;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace JLmini.ViewModel
@@ -22,7 +23,19 @@ namespace JLmini.ViewModel
                 OnPropertyChanged("SelectedQuestion");
             }
         }
-       
+
+        public CommandBase AddQuestion
+        {
+            get
+            {
+                return addQuestion ??
+            (addQuestion = new CommandBase(obj =>
+            {
+                Questions.Add(SelectedQuestion);
+                SelectedQuestion = new Question();
+            }));
+            }
+        }
         public CommandBase RemoveQuestion
         {
             get
@@ -43,8 +56,7 @@ namespace JLmini.ViewModel
 
         public QuestionViewModel()
         {
-            AktuelleView = new QuestionView();
-
+            SelectedQuestion = new Question();
             Questions = new ObservableCollection<Question>
             {
                 new Question{QuestionText="Основные понятия", Section = "БД", Stage ="Первая", Points=2, Time=20},
